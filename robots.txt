@@ -1,0 +1,10 @@
+# robots.txt for waqar-tech.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://waqar-tech.com/sitemap.xml
+
+# Crawl-delay (optional, be nice to servers)
+Crawl-delay: 1
