@@ -1,29 +1,17 @@
-# Dependencies
+﻿# Ignore source files
 node_modules/
-
-# Build output
+.astro/
+src/
 dist/
 
-# Cache
-.astro/
-
-# Environment variables
-.env
-.env.local
-
-# IDE
-.vscode/
-.DS_Store
-
-# Old built files (remove these from git)
-index.html
-robots.txt
-sitemap.xml
-_astro/
-how-i-built-this-website-in-30-minutes-using-gemini/
-favicon-*.png
-favicon.svg
-*.html
-
-# Keep .nojekyll for GitHub Pages
-!.nojekyll
+# Keep root files (built output)
+!/.nojekyll
+!/CNAME
+!/favicon*
+!/index.html
+!/robots.txt
+!/sitemap.xml
+!/_astro/
+!/_astro/**
+!/how-i-built-this-website-in-30-minutes-using-gemini/
+!/how-i-built-this-website-in-30-minutes-using-gemini/**
