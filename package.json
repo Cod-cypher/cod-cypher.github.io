@@ -1,0 +1,30 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cod-cypher/cod-cypher.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cod-cypher/cod-cypher.github.io/issues"
+  },
+  "homepage": "https://github.com/Cod-cypher/cod-cypher.github.io#readme",
+  "description": "",
+  "dependencies": {
+    "@astrojs/sitemap": "^4.2.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.16.4",
+    "tailwindcss": "^3.4.18"
+  }
+}

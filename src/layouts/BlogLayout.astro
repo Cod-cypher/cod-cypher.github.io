@@ -1,0 +1,109 @@
+---
+// BlogLayout.astro - Layout for blog posts
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+    title: string;
+    description: string;
+    publishedDate: string;
+    category: string;
+    readTime: string;
+    keywords?: string;
+}
+
+const { title, description, publishedDate, category, readTime, keywords } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} keywords={keywords} publishedTime={publishedDate}>
+    <div id="progress-container"><div id="progress-bar"></div></div>
+    
+    <header class="pt-32 pb-12 px-6 text-center max-w-4xl mx-auto">
+        <span class="font-mono text-sm tracking-widest uppercase mb-4 block" style="color: var(--accent-color)">{category}</span>
+        <h1 class="font-display font-bold text-4xl md:text-6xl leading-tight mb-6" style="color: var(--text-color)">{title}</h1>
+        <div class="flex justify-center items-center gap-4 text-sm" style="color: var(--text-dim)">
+            <span>{publishedDate}</span><span>•</span><span>{readTime}</span>
+        </div>
+    </header>
+
+    <article class="px-6 max-w-2xl mx-auto pb-32">
+        <slot />
+    </article>
+</BaseLayout>
+
+<style is:global>
+    /* Progress Bar */
+    #progress-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        z-index: 10001;
+        background: transparent;
+    }
+    
+    #progress-bar {
+        height: 100%;
+        background: var(--accent-color);
+        width: 0%;
+        box-shadow: 0 0 10px var(--accent-color);
+        transition: width 0.1s;
+    }
+    
+    /* Article Typography */
+    article p {
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+        color: var(--text-dim);
+        font-size: 1.125rem;
+    }
+    
+    article h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        font-size: 2rem;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+    }
+    
+    article ul {
+        list-style-type: disc;
+        margin-left: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    article li {
+        margin-bottom: 0.5rem;
+        color: var(--text-dim);
+    }
+    
+    article strong {
+        color: var(--text-color);
+        font-weight: 600;
+    }
+    
+    article em {
+        font-style: italic;
+    }
+    
+    article .lead {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+    }
+</style>
+
+<script>
+    // Progress Bar
+    window.onscroll = function() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const progressBar = document.getElementById("progress-bar");
+        if (progressBar) {
+            progressBar.style.width = scrolled + "%";
+        }
+    };
+</script>

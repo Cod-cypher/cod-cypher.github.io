@@ -1,0 +1,243 @@
+---
+// BaseLayout.astro - Main layout component
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+    title: string;
+    description: string;
+    ogImage?: string;
+    keywords?: string;
+    publishedTime?: string;
+}
+
+const { title, description, ogImage = 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200', keywords = 'AI development, portfolio, Waqar', publishedTime } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title}>
+    <meta name="description" content={description}>
+    <meta name="keywords" content={keywords}>
+    <meta name="author" content="Waqar">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href={canonicalURL}>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={publishedTime ? 'article' : 'website'}>
+    <meta property="og:url" content={canonicalURL}>
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:image" content={ogImage}>
+    <meta property="og:site_name" content="Waqar Tech">
+    {publishedTime && <meta property="article:author" content="Waqar">}
+    {publishedTime && <meta property="article:published_time" content={publishedTime}>}
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content={canonicalURL}>
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:image" content={ogImage}>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-192.png">
+    <link rel="shortcut icon" href="/favicon.svg">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2NHW4PXX6F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-2NHW4PXX6F');
+    </script>
+    
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "uii38faqhg");
+    </script>
+    
+    <!-- Structured Data (JSON-LD) -->
+    {publishedTime ? (
+        <script type="application/ld+json" set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": title,
+            "description": description,
+            "image": ogImage,
+            "author": {
+                "@type": "Person",
+                "name": "Waqar",
+                "url": "https://waqar-tech.com",
+                "jobTitle": "Full Stack AI Developer"
+            },
+            "publisher": {
+                "@type": "Person",
+                "name": "Waqar"
+            },
+            "datePublished": publishedTime,
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": canonicalURL.toString()
+            },
+            "keywords": keywords.split(', ')
+        })} />
+    ) : (
+        <>
+            <script type="application/ld+json" set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "name": "Waqar",
+                "url": "https://waqar-tech.com",
+                "jobTitle": "Full Stack AI Developer",
+                "description": "Full Stack AI Developer specializing in large-scale applications, intelligent chatbots, and agentic AI systems.",
+                "sameAs": [
+                    "https://www.linkedin.com/in/waqar-shabbir-022653230/",
+                    "https://github.com/cod-cypher"
+                ],
+                "knowsAbout": ["Artificial Intelligence", "Machine Learning", "LLM Applications", "Chatbot Development", "Agentic AI", "LangChain", "RAG", "Python", "Full Stack Development", "React", "Next.js", "Node.js", "OpenAI API", "Claude API"]
+            })} />
+            <script type="application/ld+json" set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Waqar Tech - AI Developer",
+                "url": "https://waqar-tech.com",
+                "description": "Full Stack AI Developer Portfolio - Chatbots, Agentic Systems & Large-Scale Applications",
+                "author": {
+                    "@type": "Person",
+                    "name": "Waqar"
+                }
+            })} />
+        </>
+    )}
+</head>
+<body class="antialiased">
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+    
+    <Navigation />
+    
+    <slot />
+    
+    <Footer />
+    
+    <script>
+        // Custom Cursor
+        const cursorDot = document.getElementById("cursor-dot");
+        const cursorOutline = document.getElementById("cursor-outline");
+        
+        if (cursorDot && cursorOutline) {
+            window.addEventListener("mousemove", function (e) {
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+                cursorOutline.animate(
+                    { left: `${e.clientX}px`, top: `${e.clientY}px` },
+                    { duration: 500, fill: "forwards" }
+                );
+            });
+            
+            document.addEventListener('mouseover', function(e) {
+                if(e.target.closest('a') || e.target.closest('button') || e.target.closest('.blog-item')) {
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursorOutline.style.opacity = '0';
+                } else {
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorOutline.style.opacity = '1';
+                }
+            });
+            
+            // Hide custom cursor on touch devices
+            if ('ontouchstart' in window) {
+                cursorDot.style.display = 'none';
+                cursorOutline.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+
+<style is:global>
+    :root {
+        --bg-color: #FAFAFA;
+        --text-color: #121212;
+        --text-dim: #555555;
+        --surface-color: #FFFFFF;
+        --border-color: #E5E5E5;
+        --accent-color: #6C63FF;
+    }
+    
+    html.dark {
+        --bg-color: #121212;
+        --text-color: #F5F5F7;
+        --text-dim: #888888;
+        --surface-color: #1E1E1E;
+        --border-color: #333333;
+        --accent-color: #CCFF00;
+    }
+    
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s, color 0.3s;
+        font-family: 'Inter', sans-serif;
+    }
+    
+    ::selection {
+        background: var(--accent-color);
+        color: black;
+    }
+    
+    /* Custom Cursor */
+    .cursor-dot { 
+        width: 12px;
+        height: 12px;
+        background-color: var(--accent-color);
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.3s, background-color 0.3s;
+    }
+    
+    .cursor-outline { 
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--text-dim);
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s ease-out;
+    }
+    
+    @media (max-width: 768px) {
+        .cursor-dot,
+        .cursor-outline {
+            display: none;
+        }
+    }
+</style>
