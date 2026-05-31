@@ -15,7 +15,3 @@ node_modules/
 # Cache
 .astro/
 
-# Generated files (created by Astro build)
-public/sitemap.xml
-public/robots.txt
-

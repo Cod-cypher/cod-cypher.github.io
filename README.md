@@ -29,7 +29,6 @@ portfolio/
 ├── public/
 │   ├── favicon.svg
 │   ├── robots.txt
-│   ├── sitemap.xml
 │   └── CNAME
 └── astro.config.mjs
 ```
@@ -77,7 +76,7 @@ The static files in `/dist` can be deployed to any static hosting service.
 
 ## 🌐 SEO
 
-- Sitemap is auto-generated in `public/sitemap.xml`
+- Sitemap index is auto-generated in `dist/sitemap-index.xml`
 - `robots.txt` configured for search engine crawlers
 - Meta tags and Open Graph data on all pages
 - Semantic HTML structure
