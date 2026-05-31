@@ -5,7 +5,12 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://waqar-tech.com',
-  integrations: [tailwind(), sitemap()],
+  integrations: [
+    tailwind(), 
+    sitemap({
+      entryLimit: 10000,
+    })
+  ],
   output: 'static',
   build: {
     format: 'directory'
