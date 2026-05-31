@@ -6,12 +6,13 @@ interface Props {
     title: string;
     description: string;
     publishedDate: string;
+    displayDate?: string;
     category: string;
     readTime: string;
     keywords?: string;
 }
 
-const { title, description, publishedDate, category, readTime, keywords } = Astro.props;
+const { title, description, publishedDate, displayDate = publishedDate, category, readTime, keywords } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} keywords={keywords} publishedTime={publishedDate}>
@@ -21,7 +22,7 @@ const { title, description, publishedDate, category, readTime, keywords } = Astr
         <span class="font-mono text-sm tracking-widest uppercase mb-4 block" style="color: var(--accent-color)">{category}</span>
         <h1 class="font-display font-bold text-4xl md:text-6xl leading-tight mb-6" style="color: var(--text-color)">{title}</h1>
         <div class="flex justify-center items-center gap-4 text-sm" style="color: var(--text-dim)">
-            <span>{publishedDate}</span><span>•</span><span>{readTime}</span>
+            <span>{displayDate}</span><span>•</span><span>{readTime}</span>
         </div>
     </header>
 
